@@ -98,7 +98,7 @@ A JSON Web Token (JWT) generálásához használt titkos kulcsot és lejárati i
 
 ## Adatbázis-terv
 ### Táblák kapcsolati UML diagramja
-![](uml.png)
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/develop/CataflixBackEnd/uml.png)
 
 ## Végpont tervek és leírások
 * `POST /api/auth/signin` Bejelentkezés
@@ -129,4 +129,4 @@ A JSON Web Token (JWT) generálásához használt titkos kulcsot és lejárati i
 * `DELETE /users/deleteByName/{name}` Egy felhasználó törlése (név alapján)
 
 ## Egy funkció szekvencia diagramja
-![](seq.png)
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/develop/CataflixBackEnd/seq.PNG)
