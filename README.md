@@ -214,7 +214,7 @@ Profil oldal:
 ![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/profile.PNG)
 
 Prémium oldal:
-![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/premium_page.PNG)
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/premium.PNG)
 
 Egyenleg feltöltő popup dialog:
 ![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/topup.PNG)
