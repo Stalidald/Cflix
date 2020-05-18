@@ -20,34 +20,62 @@ public class SignupRequest {
     @Size(min = 6, max = 40)
     private String password;
 
+    /**
+     * @return username
+     */
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    /**
+     * Set Signup Requests username to
+     * @param userName
+     */
+    public void setUsername(String userName) {
+        this.username = userName;
     }
 
+    /**
+     * @return email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Set Signup Requests email to
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * @return password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Set Signup Requests password to
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * @return role
+     */
     public Set<String> getRole() {
         return this.role;
     }
 
+    /**
+     * Set Signup Requests role to
+     * @param role
+     */
     public void setRole(Set<String> role) {
         this.role = role;
     }

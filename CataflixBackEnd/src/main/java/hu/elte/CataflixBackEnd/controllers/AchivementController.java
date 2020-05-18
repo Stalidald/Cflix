@@ -15,16 +15,25 @@ public class AchivementController extends BaseController {
     @Autowired
     AchivementService achivementService;
 
+    /**
+     * @return all achievements available
+     */
     @GetMapping("")
     public ResponseEntity<Iterable<AchivementEntity>> listAllAchivement() {
         return ResponseEntity.ok(achivementService.listAllData());
     }
 
+    /**
+     * @return one achievement by ID
+     */
     @GetMapping("/{id}")
     public ResponseEntity<AchivementEntity> getAchivementById(@PathVariable long id) {
         return ResponseEntity.ok(achivementService.loadDataById(id));
     }
 
+    /**
+     * @return one achievement by name
+     */
     @GetMapping("/name/{name}")
     public ResponseEntity<AchivementEntity> getAchivementByName(@PathVariable String name) {
         try {
@@ -34,12 +43,18 @@ public class AchivementController extends BaseController {
         }
     }
 
+    /**
+     * Delete one achievement by ID
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteAchivementById(@PathVariable long id) {
         return ResponseEntity
                 .ok(achivementService.deleteData(achivementService.loadDataById(id)));
     }
 
+    /**
+     * Delete one achievement by name
+     */
     @DeleteMapping("/deleteByName/{name}")
     public ResponseEntity deleteAchivementByName(@PathVariable String name) {
         return ResponseEntity.ok(achivementService.deleteData(achivementService.findByName(name)));

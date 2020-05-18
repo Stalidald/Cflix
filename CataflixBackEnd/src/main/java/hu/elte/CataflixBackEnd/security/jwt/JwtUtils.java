@@ -20,6 +20,11 @@ public class JwtUtils {
     @Value("${cataflix.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
+    /**
+     * Create a JWT Token based on authentication instance
+     * @param authentication
+     * @return generated JWT Token
+     */
     public String generateJwtToken(Authentication authentication) {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
@@ -32,10 +37,20 @@ public class JwtUtils {
                 .compact();
     }
 
+    /**
+     * Returns username attached to a JWT Token
+     * @param token to return from
+     * @return username
+     */
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
+    /**
+     * Check validity of JWT Token
+     * @param authToken to validate
+     * @return true or false based on validity
+     */
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);

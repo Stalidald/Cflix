@@ -1,0 +1,12 @@
+#balanceLabel{
+    cursor: pointer;
+}
+
+a:hover {
+    background-color: black;
+  }
+
+  a.active {
+    background-color: #4CAF50;
+    color: white;
+  }

@@ -1,0 +1,60 @@
+<div class="container" *ngIf="currentUser; else loggedOut">
+  <header class="jumbotron">
+    <h2>Profil adatok</h2>
+    <form>
+      <table>
+        <tr>
+          <td>
+            <div class="form-group">
+              <mat-form-field>
+                <input name="title" [(ngModel)]="editingUser.userName" matInput type="text" disabled
+                  placeholder="Felhasználónév">
+              </mat-form-field>
+            </div>
+            <div class="form-group">
+              <mat-form-field>
+                <input name="email" [(ngModel)]="editingUser.email" matInput type="text" disabled placeholder="Email">
+              </mat-form-field>
+            </div>
+          </td>
+          <td rowspan="1">
+            <h2>Megvásárolt filmek: {{currentUser.ownedMovies.length}}</h2>
+            <li *ngFor="let a of currentUser.ownedMovies">
+              {{ a.title }}
+          </li>
+            <br>
+            <h2>Feloldott mérföldkövek: {{currentUser.unlockedAchivements.length}}</h2>
+            <li *ngFor="let a of currentUser.unlockedAchivements">
+                {{ a.name }} - {{ a.description }}
+            </li>
+            <br>
+            <h2>Jogosultság: </h2>
+            <ng-container *ngIf="currentUser.roles.length==1">
+              <h2>Felhasználó</h2>
+              <br>
+              <br>
+              <button mat-raised-button color="accent" (click)="buyPremium()">Prémiumra váltás</button>
+            </ng-container>
+            <ng-container *ngIf="currentUser.roles.length==2">
+              <h2>Prémium</h2>
+            </ng-container>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="form-group">
+              <mat-form-field>
+                <input name="name" [(ngModel)]="editingUser.name" matInput type="text" placeholder="Teljes neve">
+              </mat-form-field>
+            </div>
+            <button (click)="editProfile()">Módosítás</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </header>
+</div>
+
+<ng-template #loggedOut>
+  Please login.
+</ng-template>

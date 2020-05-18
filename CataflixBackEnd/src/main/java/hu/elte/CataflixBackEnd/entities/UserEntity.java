@@ -48,19 +48,19 @@ public class UserEntity extends BaseEntity {
     private double balance;
 
     @Column
-    @OneToMany
-    private List<MovieEntity> ownedMovies;
+    @ManyToMany
+    public List<MovieEntity> ownedMovies;
 
     @Column
-    @OneToMany
+    @ManyToMany
     private List<MovieEntity> rentedMovies;
 
     @Column
-    @OneToMany
-    private List<AchivementEntity> unlockedAchivements;
+    @ManyToMany
+    public List<AchivementEntity> unlockedAchivements;
 
     @Column
-    @OneToMany
+    @ManyToMany
     private List<MovieEntity> wishList;
 
     @Column
@@ -76,6 +76,14 @@ public class UserEntity extends BaseEntity {
     private Set<Role> roles = new HashSet<>();
 
 
+    /**
+     * Constructor of user entity with following parameters
+     * @param userName
+     * @param password
+     * @param email
+     * @param type
+     * @param version
+     */
     public UserEntity(String userName, String password,String email, String type, int version) {
         this.userName = userName;
         this.password = password;
@@ -84,12 +92,23 @@ public class UserEntity extends BaseEntity {
         this.version = version;
     }
 
-    public UserEntity(String username, String email, String password) {
-        this.userName = username;
+    /**
+     * Constructor of user entity with following parameters
+     * @param userName
+     * @param password
+     * @param email
+     */
+    public UserEntity(String userName, String email, String password) {
+        this.userName = userName;
         this.email = email;
         this.password = password;
     }
 
+    /**
+     * equals function of User entity, checking current object against another given User entity
+     * @param o other user entity to check against
+     * @return true or false
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -102,47 +121,87 @@ public class UserEntity extends BaseEntity {
                 Objects.equals(type, that.type);
     }
 
+    /**
+     * @return hash code of user entity
+     * hash code calculated based on:
+     *      name, email, userName, type
+     */
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), name, email, userName, type);
     }
 
+    /**
+     * @return roles of user
+     */
     public Set<Role> getRoles() {
         return roles;
     }
 
+    /**
+     * Add roles to user
+     * @param roles to add
+     */
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
+    /**
+     * @return users name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Set users name to
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * @return users email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Set users email to
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * @return users username
+     */
     public String getUserName() {
         return userName;
     }
 
+    /**
+     * Set users username to
+     * @param userName
+     */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
+    /**
+     * @return users password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Set users password to
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }

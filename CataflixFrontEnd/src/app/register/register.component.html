@@ -1,0 +1,56 @@
+<div class="col-md-12">
+  <div class="card card-container">
+    <div>
+      <h1>Regisztráció</h1>
+    </div>
+    <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <div class="form-group">
+        <label for="username">Felhasználónév</label>
+        <input type="text" class="form-control" name="username" [(ngModel)]="form.username" required minlength="3"
+          maxlength="20" #username="ngModel" />
+        <div class="alert-danger" *ngIf="f.submitted && username.invalid">
+          <div *ngIf="username.errors.required">Felhasználónév szükséges</div>
+          <div *ngIf="username.errors.minlength">
+            Felhasználónév leglább 3 karakterből kell álljon
+          </div>
+          <div *ngIf="username.errors.maxlength">
+            Felhasználónév maximum 20 karakter lehet
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" name="email" [(ngModel)]="form.email" required email
+          #email="ngModel" />
+        <div class="alert-danger" *ngIf="f.submitted && email.invalid">
+          <div *ngIf="email.errors.required">Email szükséges</div>
+          <div *ngIf="email.errors.email">
+            Email cím helytelen
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Jelszó</label>
+        <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required minlength="6"
+          #password="ngModel" />
+        <div class="alert-danger" *ngIf="f.submitted && password.invalid">
+          <div *ngIf="password.errors.required">Jelszó szükséges</div>
+          <div *ngIf="password.errors.minlength">
+            A jelszó legalább 6 karakterből kell álljon!
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary btn-block">Regisztráció</button>
+      </div>
+
+      <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+        Hibás regisztráció!<br />{{ errorMessage }}
+      </div>
+    </form>
+
+    <div class="alert alert-success" *ngIf="isSuccessful">
+      Sikeres regisztráció! Már be tudsz jelentkezni!
+    </div>
+  </div>
+</div>

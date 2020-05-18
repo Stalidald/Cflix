@@ -25,6 +25,14 @@ public class UserDetailsImpl implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
+    /**
+     * Constructor for UserDetailsImpl instance using the following parameters
+     * @param id
+     * @param username
+     * @param email
+     * @param password
+     * @param authorities
+     */
     public UserDetailsImpl(Long id, String username, String email, String password,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
@@ -34,6 +42,11 @@ public class UserDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
+    /**
+     * Creates UserDetailsImpl instance based on user
+     * @param user
+     * @return UserDetailsImpl instance
+     */
     public static UserDetailsImpl build(UserEntity user) {
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
@@ -47,49 +60,80 @@ public class UserDetailsImpl implements UserDetails {
                 authorities);
     }
 
+    /**
+     * @return users authorities
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
+    /**
+     * @return users id
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * @return users email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * @return users password
+     */
     @Override
     public String getPassword() {
         return password;
     }
 
+    /**
+     * @return users username
+     */
     @Override
     public String getUsername() {
         return username;
     }
 
+    /**
+     * @return users expiration status
+     */
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    /**
+     * @return users lock status
+     */
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    /**
+     * @return user credentials expiration status
+     */
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    /**
+     * @return users enable status
+     */
     @Override
     public boolean isEnabled() {
         return true;
     }
 
+    /**
+     * Checks Equality with another object
+     * @return true or false
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o)
