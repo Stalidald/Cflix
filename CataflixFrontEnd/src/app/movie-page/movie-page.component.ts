@@ -11,6 +11,7 @@ import { User } from '../models/user';
 import { UserService } from '../services/user.service';
 import { TokenStorageService } from '../services/token-storage.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-movie-page',
@@ -24,7 +25,7 @@ export class MoviePageComponent implements OnInit {
   movieIsOwned = false;
 
   constructor(private route: ActivatedRoute,
-    private router: Router, private authenticationService: AuthService, private http: HttpClient, private movieService: MovieService, public dialog: MatDialog, private userService: UserService, private tokenStorageService: TokenStorageService, public _snackBar: MatSnackBar) {
+    private router: Router, private authenticationService: AuthService, private http: HttpClient, private movieService: MovieService, public dialog: MatDialog, private userService: UserService, private tokenStorageService: TokenStorageService, public _snackBar: MatSnackBar, private appComp: AppComponent) {
     var movieIdFromUrl = this.route.snapshot.paramMap.get('movieId');
     if (movieIdFromUrl) {
       this.injectedMovieId = Number(movieIdFromUrl)
@@ -51,6 +52,29 @@ export class MoviePageComponent implements OnInit {
 
   }
 
+  reConstruct(){
+    var movieIdFromUrl = this.route.snapshot.paramMap.get('movieId');
+    if (movieIdFromUrl) {
+      this.injectedMovieId = Number(movieIdFromUrl)
+      this.movieService.getMovieById(this.injectedMovieId).subscribe(x => {
+        this.currentMovie = x;
+        this.userService.getUserByEmail(this.tokenStorageService.getUser().email).subscribe(x => {
+          this.user = x
+          for (let ownedMovie of this.user.ownedMovies) {
+            if (ownedMovie.id == this.currentMovie.id) {
+              this.movieIsOwned = true;
+              const tag = document.createElement('script');
+              tag.src = "http://www.youtube.com/iframe_api";
+              document.body.appendChild(tag);
+            }
+          }
+        });
+      })
+    } else {
+      console.log("ERROR")
+    }
+  }
+
   buy(): void {
     const warning = new WarningOptions()
     warning.header = "Figyelmeztetés"
@@ -70,7 +94,8 @@ export class MoviePageComponent implements OnInit {
         this.user.balance = this.user.balance - this.currentMovie.price
         this.user.ownedMovies.push(this.currentMovie)
         this.userService.updateUser(this.user).subscribe(x => {
-          window.location.reload()
+          this.appComp.ngOnInit()
+          this.reConstruct()
           this.openSnackBar("Sikeres vásárlás", "Értem")
         })
       }
