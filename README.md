@@ -145,7 +145,7 @@ A JSON Web Token (JWT) generálásához használt titkos kulcsot és lejárati i
 | Prémium | Birtokolja az összes filmet, megtekintheti a prémium oldalt. |
 
 ## Használati eset diagram
-![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/usecase.PNG)
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/usecase.png)
 
 # Dokumentáció - Front-end
 ## Fejlesztői környezet bemutatása
