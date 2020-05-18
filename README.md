@@ -202,19 +202,19 @@ Bejelentkező oldal:
 ![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/movies.PNG)
 
 Egy olyan film adatlapja, ami még nincsen megvásárolva a felhasználó által:
-![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/movie_page.PNG)
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/movie page.PNG)
 
 Egy olyan film adatlapja, amit már megvásárolt a felhasználó:
-![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/owned_movie_page.PNG)
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/owned movie page.PNG)
 
 Megvásárol filmek oldal:
-![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/owned_movies.PNG)
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/owned movies.PNG)
 
 Profil oldal:
 ![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/profile.PNG)
 
 Prémium oldal:
-![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/premium_page.PNG)
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/premium page.PNG)
 
 Egyenleg feltöltő popup dialog:
 ![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/topup.PNG)
@@ -251,10 +251,10 @@ Sikeres bejelentkezés után az alábbi oldalak és funkciók elérhetők:
 	* Amennyiben a felhasználó még nem vásárolta meg a filmet, a film összes adatát megtekintheti, és megvásárolhatja
 	![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/feluletek/movie page.PNG)
 	* Amennyiben a felhasználó már megvásárolta a filmet, a film összes adatát megtekintheti, és a filmhez tartozó előzetest is
-	![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/feluletek/owned_movie_page.PNG)
+	![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/feluletek/owned movie page.PNG)
 
 * Megvásárolt filmek oldal: listázza az összes, a felhasználó által megvásárolt filmeket. A filmeket melletti Megtekintés gomb menyomásával a kiválasztott film adatlapjára navigál. Megjegyzés: amennyiben a felhasználó egy filmmet sem vásárolt még, akkor ez az oldal nem elérhető számára, és a menüsávban sem látható.
-![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/feluletek/owned_movies.PNG)
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/feluletek/owned movies.PNG)
 
 * Profil: a felhasználó megtekintheti a felhasználónevét, email címét, az általa megvásárolt filmeket, az elért mérföldköveket, a felhasználó jogosultságát, és amennyiben a felhasználó alap, Felhasználó jogosultsággal rendelkezik (alapból regisztráció után minden felhasználó), akkor lehetősége van prémium jogosultság megvásárlására, ami után elérhetővé válik az összes film és a prémium oldal is.
 Alap felhasználó jogosultság esetén a profil:
@@ -268,4 +268,4 @@ Prémium felhasználó jogosultság esetén a profil:
 
 ## Prémium felhasználói tartalmak / menüpontok és funkcióik
 * Prémium oldal: ezt az oldalt csak a prémium jogosultsággal rendelkező felhasználók érhetik el a menüpontokon keresztül. Tartalommal nem rendelkezik, csak annyival, hogy a Prémium funkciók hamarosan éreznek!
-![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/feluletek/premium_board.PNG)
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/feluletek/premium board.PNG)
