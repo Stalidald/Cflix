@@ -13,26 +13,47 @@ public class Role {
     @Column(length = 20)
     private ERole name;
 
+    /**
+     * Constructor of Role
+     */
     public Role() {
 
     }
 
+    /**
+     * Constructor of role using
+     * @param name
+     */
     public Role(ERole name) {
         this.name = name;
     }
 
+    /**
+     * @return id
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * Set ID to
+     * @param id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     * @return name
+     */
     public ERole getName() {
         return name;
     }
 
+    /**
+     * Set name to
+     * @param name
+     */
     public void setName(ERole name) {
         this.name = name;
     }

@@ -15,16 +15,25 @@ public class MovieMemberController extends BaseController {
     @Autowired
     MovieMemberService movieMemberService;
 
+    /**
+     * @return the list of every movie member
+     */
     @GetMapping("")
     public ResponseEntity<Iterable<MovieMembersEntity>> listAllMovieMember() {
         return ResponseEntity.ok(movieMemberService.listAllData());
     }
 
+    /**
+     * @return one movie member, selected by ID
+     */
     @GetMapping("/{id}")
     public ResponseEntity<MovieMembersEntity> getMovieMemberById(@PathVariable long id) {
         return ResponseEntity.ok(movieMemberService.loadDataById(id));
     }
 
+    /**
+     * @return one movie member, selected by name
+     */
     @GetMapping("/name/{name}")
     public ResponseEntity<MovieMembersEntity> getMovieMemberByName(@PathVariable String name) {
         try {
@@ -34,12 +43,18 @@ public class MovieMemberController extends BaseController {
         }
     }
 
+    /**
+     * Delete one movie member, selected by ID
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteMovieMemberById(@PathVariable long id) {
         return ResponseEntity
                 .ok(movieMemberService.deleteData(movieMemberService.loadDataById(id)));
     }
 
+    /**
+     * Delete one movie member, selected by name
+     */
     @DeleteMapping("/deleteByName/{name}")
     public ResponseEntity deleteMovieByName(@PathVariable String name) {
         try {

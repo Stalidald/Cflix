@@ -1,5 +1,6 @@
 package hu.elte.CataflixBackEnd.controllers;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -7,6 +8,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import hu.elte.CataflixBackEnd.entities.AchivementEntity;
 import hu.elte.CataflixBackEnd.entities.UserEntity;
 import hu.elte.CataflixBackEnd.models.ERole;
 import hu.elte.CataflixBackEnd.models.Role;
@@ -18,6 +20,7 @@ import hu.elte.CataflixBackEnd.repositories.RoleRepository;
 import hu.elte.CataflixBackEnd.repositories.UserRepository;
 import hu.elte.CataflixBackEnd.security.jwt.JwtUtils;
 import hu.elte.CataflixBackEnd.security.services.UserDetailsImpl;
+import hu.elte.CataflixBackEnd.services.AchivementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -45,11 +48,18 @@ public class AuthController {
     RoleRepository roleRepository;
 
     @Autowired
+    AchivementService achivementService;
+
+    @Autowired
     PasswordEncoder encoder;
 
     @Autowired
     JwtUtils jwtUtils;
 
+    /**
+     * Checks recieved authentication data against data in database
+     * @param loginRequest object
+     */
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
@@ -70,17 +80,21 @@ public class AuthController {
                 roles));
     }
 
+    /**
+     * Registers a user, checking if inserted data is taken already, storing it in database otherwise.
+     * @param signUpRequest object
+     */
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUserName(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
+                    .body(new MessageResponse("Hiba: ez a felhasználónév már foglalt!"));
         }
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Email is already in use!"));
+                    .body(new MessageResponse("Hiba: ez az email már foglalt!"));
         }
 
         // Create new user's account
@@ -98,10 +112,10 @@ public class AuthController {
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+                    case "prenium":
+                        Role premiumRole = roleRepository.findByName(ERole.ROLE_PREMIUM)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
+                        roles.add(premiumRole);
 
                         break;
                     default:
@@ -113,7 +127,10 @@ public class AuthController {
         }
 
         user.setRoles(roles);
+        List<AchivementEntity> unlockedAchivements = new ArrayList<>();
+        unlockedAchivements.add(achivementService.loadDataById(Long.valueOf(1)));
+        user.unlockedAchivements = unlockedAchivements;
         userRepository.save(user);
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        return ResponseEntity.ok(new MessageResponse("Sikeres regisztráció"));
     }
 }

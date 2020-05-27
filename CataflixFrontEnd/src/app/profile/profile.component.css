@@ -1,0 +1,13 @@
+table, th , td , tr{
+    border-collapse: collapse;
+    padding: 15px;
+  }
+
+  h2{
+    display: inline;
+  }
+
+  .mat-button, .mat-raised-button{
+    background-color:rgb(255, 251, 9);
+    color: black;
+} 

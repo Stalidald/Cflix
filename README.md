@@ -1,15 +1,17 @@
 # Dokumentáció - Projektötlet
 
 ## Funkcionális követelmények 
+* Vendégként a főoldal, regisztációs és bejelentkező oldal elérése -> Publikus tartalmak elérése
 * Regisztráció a weboldalra -> Regisztráció 
 * Bejelentkezés a weboldalra -> Belépés 
 * Felhasználóként egyenleg feltöltése a fiókra -> Egyenleg feltöltése
-* Felhasználóként böngészés, keresés a filmek, kategóriák között -> Böngészés, keresés 
-* Felhasználóként film előzetesének lapjára lépés, film adatainak megtekintése -> Film adatlapjának megtekintése 
-* Felhasználóként film előzetesének megvásárlása egyszeri megtekintésre, vagy végleges feloldása -> Vásárlás 
-* Felhasználóként achivmentek feloldása, jutalmak, kedvezmények szerzése -> Jutalmazó rendszer 
-* Adminként bármely film előzetesének megtekintése korlátlanul -> Korlátlan film előzetes nézés 
-* Külön táblázatokba nyilvántartani a felhasználókat, kapcsolataikat, felhasználókhoz tartozó információkat, filmeket
+* Felhasználóként böngészés, keresés a filmek között -> Böngészés, keresés 
+* Felhasználóként film lapjára lépés, film adatainak megtekintése -> Film adatlapjának megtekintése 
+* Felhasználóként film megvásárlása-> Vásárlás 
+* Felhasználóként achivmentek feloldása -> Mérföldkövek
+* Felhasználóként prémium jogosultság vásárlása -> Prémiummá válás
+* Prémium felhasználóként összes film birtoklása és prémium oldal elérése -> Prémium funkciók
+* Külön táblázatokba nyilvántartani a felhasználókat, filmeket, felhasználók és filmek közötti kapcsolatokat,főszereplőket, filmek és főszereplők közötti kapcsolatokat, mérföldköveket, felhasználók és mérföldkövek közötti kapcsolatokat, szerepköröket, felhasználók és szerepkörök közötti kapcsolatokat
 
 ## Nem funkcionális követelmények 
 * Felhasználóbarát, könnyen átlátható, grafikus felület 
@@ -19,9 +21,9 @@
 * Videólejátszó oldal: olyan weboldal, amin előre beágyazott videók játszhatóak le (pl. YouTube -ról)
 
 ## Szerepkörök 
-* vendég: a bejelentkező/regisztráló felülethez fér csak hozzá 
+* vendég: a főoldalhoz, bejelentkező és regisztráló felülethez fér csak hozzá 
 * felhasználó: rendelkezik felhasználói fiókkal, el tudja érni az összes felhasználói funkciót 
-* admin: rendelkezik olyan felhasználói fiókkal, amihez admin jogosultság van rendelve, így rendelkezik az összes admin funkcióval
+* prémium: rendelkezik olyan felhasználói fiókkal, amihez prémium jogosultság van rendelve, így rendelkezik az összes prémium funkcióval
 
 # Dokumentáció - Backend megvalósítása
 
@@ -98,7 +100,7 @@ A JSON Web Token (JWT) generálásához használt titkos kulcsot és lejárati i
 
 ## Adatbázis-terv
 ### Táblák kapcsolati UML diagramja
-![ScreenShot](https://github.com/Stalidald/Cflix/blob/develop/CataflixBackEnd/uml.png)
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/uml.png)
 
 ## Végpont tervek és leírások
 * `POST /api/auth/signin` Bejelentkezés
@@ -125,8 +127,149 @@ A JSON Web Token (JWT) generálásához használt titkos kulcsot és lejárati i
 * `GET /users/{id}` Egy felhasználó lapja (id alapján)
 * `GET /users/email/{email}` Egy felhasználó lapja (email alapján)
 * `GET /users/name/{name}` Egy felhasználó lapja (név alapján)
+* `PUT /users/{id}` Egy felhasználó módosítása (id alapján)
+* `PUT /users/upgrade/{id}` Egy felhasználó prémiummá fejlesztése (id alapján)
 * `DELETE /users/{id}` Egy felhasználó törlése (id alapján)
 * `DELETE /users/deleteByName/{name}` Egy felhasználó törlése (név alapján)
 
 ## Egy funkció szekvencia diagramja
-![ScreenShot](https://github.com/Stalidald/Cflix/blob/develop/CataflixBackEnd/seq.PNG)
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/seq.PNG)
+
+
+## Szerepkörök
+
+| Szereplő |                            |
+|----------|----------------------------|
+| Vendég | Megtekintheti a főoldalt, bejelentkezhet, illetve regisztrálhat. |
+| Felhasználó | Szerkesztheti a profilját, egyenleget tölthet fel, megtekintheti az összes film adatlapját, vásárolhat filmeket, mérföldköveket oldhat fel, prémium jogosultságot vásárolhat. |
+| Prémium | Birtokolja az összes filmet, megtekintheti a prémium oldalt. |
+
+## Használati eset diagram
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/usecase.png)
+
+# Dokumentáció - Front-end
+## Fejlesztői környezet bemutatása
+* Angular CLI: 9.1.3
+* Node: 12.16.1
+* OS: Windows 10 (x64)
+* Visual Studio Code
+* Google Chrome
+
+## Használt technológiák
+Használt modulok / függőségek:
+* http
+* forms
+* browser animations
+* materials: form-field, input, snack-bar, dialog, checkbox, table, paginator, sort, button, icon
+* youtube-player
+
+## Alkalmazott könyvtárstruktúra bemutatása:
+* `src/app/` A front-end forrása
+* `balance-topup` Egyenleg feltöltő komponens
+* `helpers` HttpInterceptor megvalósítás
+* `home` Főoldal komponens
+* `login` Bejelentkező komponens
+* `models` Modelek / osztályok
+	* `achivement` Mérföldkő
+	* `base-class` Alaposztály
+	* `movie-member` Főszereplő
+	* `movie` Film
+	* `user` Felhasználó
+	* `warning-options` warning-dialog -hoz használt címkék
+* `movie-page` Film adatlap komponens
+* `movies` Összes (vagy megvásárolt) filmek komponens
+* `premium-board` Prémium oldal komponens
+* `profile` Profil komponens
+* `Register` Regisztrációs komponens
+* `services` Szolgáltatások: 
+	* `auth-service` bejelentkezés / regisztrációs szolgáltatás
+	* `movie-service` Filmek szolgáltatásai
+	* `token-storage-service` Session storage kezelés
+	* `user-service` Felhasználó szolgáltatásai
+* `warning-dialog` Felugró popup / dialog komponens
+
+## Felületi tervek
+Főoldal:
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/home.PNG)
+
+Regisztrációs oldal:
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/register.PNG)
+
+Bejelentkező oldal:
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/login.PNG)
+
+Összes film oldal:
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/movies.PNG)
+
+Egy olyan film adatlapja, ami még nincsen megvásárolva a felhasználó által:
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/movie_page.PNG)
+
+Egy olyan film adatlapja, amit már megvásárolt a felhasználó:
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/owned_movie_page.PNG)
+
+Megvásárol filmek oldal:
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/owned_movies.PNG)
+
+Profil oldal:
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/profile.PNG)
+
+Prémium oldal:
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/premium.PNG)
+
+Egyenleg feltöltő popup dialog:
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/tervek/topup.PNG)
+
+# Felhasználói dokumentáció
+## Feladat rövid ismertetése:
+Az alkalmazás célja egy olyan webes filmnéző oldal, melyre lehet regisztrálni és belentkezni. Bejelentkezés után a felhasználó böngészhet a filmek között, és kedvére vásárolhat filmeket. Egy film megvásárlása előtt csak a film általános információit láthatja, vásárlás után pedig már a film előzetesét is. A vásárlásokkal mérföldköveket oldhat fel a felhasználó. Lehetőség van a fiókra egyenleget feltölteni, ebből lehet filmeket, illetve prémium jogosultságot vásárolni.
+
+## Publikus tartalmak / menüpontok és funkcióik
+A publikus tartalmak megtekintéséhez nincs szükség felhasználói fiókra. Publikus tartalmak a következők:
+
+* Főoldal: az oldal köszönti a látogatót
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/feluletek/home.PNG)
+
+* Regisztrációs oldal: lehetőséget ad a felhasználónak regisztrációra.
+	* Követelmények:
+		* Felhasználónév legalább 3 karakter, és még nem foglalt
+		* Email valós email cím, és még nem hoztak vele létre felhasználót eddig
+		* Jelszó legalább 6 karakter hosszú
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/feluletek/register.PNG)
+
+* Bejelentkező oldal: lehetőséget ad a felasználónak a bejelentkezésre
+	*Követelmények:
+		* Felhasználónév és jelszó létező, már regisztrált felhasználóhoz tartozzon
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/feluletek/login.PNG)
+
+## Felhasználói tartalmak / menüpontok és funkcióik
+Sikeres bejelentkezés után az alábbi oldalak és funkciók elérhetők:
+* Összes film oldal: listázza az összes, adatbázisban szereplő filmet és adataikat. A találatok szürhetők egy keresési mezővel.
+	* A filmek mellet lévő Megtekintés gomb menyomásával a kiválasztott film adatlapjára navigál
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/feluletek/movies.PNG)
+
+* Kiválasztott film adatlapja:
+	* Amennyiben a felhasználó még nem vásárolta meg a filmet, a film összes adatát megtekintheti, és megvásárolhatja
+	![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/feluletek/movie_page.PNG)
+	* Amennyiben a felhasználó már megvásárolta a filmet, a film összes adatát megtekintheti, és a filmhez tartozó előzetest is
+	![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/feluletek/owned_movie_page.PNG)
+
+* Megvásárolt filmek oldal: listázza az összes, a felhasználó által megvásárolt filmeket. A filmeket melletti Megtekintés gomb menyomásával a kiválasztott film adatlapjára navigál. Megjegyzés: amennyiben a felhasználó egy filmmet sem vásárolt még, akkor ez az oldal nem elérhető számára, és a menüsávban sem látható.
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/feluletek/owned_movies.PNG)
+
+* Profil: a felhasználó megtekintheti a felhasználónevét, email címét, az általa megvásárolt filmeket, az elért mérföldköveket, a felhasználó jogosultságát, és amennyiben a felhasználó alap, Felhasználó jogosultsággal rendelkezik (alapból regisztráció után minden felhasználó), akkor lehetősége van prémium jogosultság megvásárlására, ami után elérhetővé válik az összes film és a prémium oldal is.
+Alap felhasználó jogosultság esetén a profil:
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/feluletek/profile.PNG)
+
+Prémium felhasználó jogosultság esetén a profil:
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/feluletek/profile2.PNG)
+
+* Egyenleg feltöltés: a felhasználónak lehetősége van megadni bankkártya számot, CVC -t, lejárati dátumot, majd a feltölteni kívánt összeget. A feltöltés gomb megnyomásával jóváíródik a felhasználó számlájára az összeg. Feltöltés előtt lehetősége van az Adatok mentése funkciót bepipálni, amivel a következő egyenleg feltöltéskor a bankkártya száma, CVC -je és lejárati dátuma automatikusan kitöltődik a mostani feltöltéskor megadott adatokkal.
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/feluletek/topup.PNG)
+
+## Prémium felhasználói tartalmak / menüpontok és funkcióik
+* Prémium oldal: ezt az oldalt csak a prémium jogosultsággal rendelkező felhasználók érhetik el a menüpontokon keresztül. Tartalommal nem rendelkezik, csak annyival, hogy a Prémium funkciók hamarosan éreznek!
+![ScreenShot](https://github.com/Stalidald/Cflix/blob/negyedik_merfoldko/pictures/feluletek/premium_board.PNG)
+
+# Egy funkció folyamatának leírása
+## Film adatlapjának megtekintése
+Az összes film oldalon kiválasszuk mondjuk a Titanic filmet, hogy annak az oldalát akarjuk megtekinteni, tehát a Titanic sorában lévő Megtekintés gombra kattintunk. A Titanic ID -je 1, ezért a movies component (amin eddig voltunk) átnavigál a routeren keresztül a movies/1 oldalra, tehát a movie-page komponensre. Ennek a komponensnek a konstruktora lefut, tehát kiszedi az URL -ből a ID -t, ami az 1. Az 1 -es ID -vel rendelkező filmet lekérdezi a front-endes movie-service -től. Ez HTTP GET kérést küld a back-end felé, ahol a MovieController fogadja. A MovieController megkapja a kérést az 1 -es ID -val rendelkező filmről, továbbkérdez a back-end -en lévő MovieService irányába, ami pedig a MovieRepository -től kérdezi le. A MovieRepository megtalálja az 1 -es ID -val rendelkező filmet, visszaküldi a MovieService -nek, az visszaküldi a MovieControllernek, az pedig visszaküldi a front-enden lévő movie-service -nek. A movie-service megkapja, továbbítja a movie-page komponensnek, ahonnan eleve a kérés indult. A komponens sikeresen megkapja a Movie osztállyal rendelkező objektumot, és beállítja az oldal megjelenítésére a filmet. Ezek után a movie-page komponens lekérdezi a session storage-ből a bejelentkezett felhasználó emailcímét, majd ezt is lekérdezi a back-end től, ugyanolyan módon: movie-page komponens -> user-service -> HTTP GET -> UserController -> UserService -> UserRepository -> megvan az adott email címmel rendelkező felhasználó objektum, mehet vissza a front-endhez: UserRepository -> UserService -> UserController -> vissza a front-endhez -> user-service -> movie-page komponens. Megérkezett a komponenshez a felhasználó összes információja, úgyhogy egy ciklus segítségével végigmegy a felhasználó összes birtokolt filmjén, és ha a filmjei között található az 1 -es ID -val rendelkező (Titanic) film, akkor átállít egy változót, ami kontrollálja, hogy a felhasználó birtokolja -e a filmet, és akkor más tartalmat jelenít meg. Ha nem birtokolja, akkor egyszerűen megjeleníti a film adatait, és egy vásárlás gombot, amivel megvehetővé teszi a felhasználó számára a filmet. Ha viszont birtokolja, akkor ez a gomb nem látszik, viszont a film előzetesét jeleníti meg.

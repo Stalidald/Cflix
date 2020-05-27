@@ -1,0 +1,36 @@
+<h2>Egyenleg feltöltése</h2>
+<form>
+    <div class="form-group">
+        <mat-form-field>
+            <input name="creditCardNumber" [(ngModel)]="user.creditCardNumber" matInput type="text"
+                placeholder="Bankkártya száma">
+        </mat-form-field>
+    </div>
+
+    <div class="form-group">
+        <mat-form-field>
+            <input name="cvc" [(ngModel)]="user.cvc" matInput type="number" placeholder="CVC">
+        </mat-form-field>
+    </div>
+
+    <div class="form-group">
+        <mat-form-field>
+            <input name="expireDate" [(ngModel)]="user.expireDate" matInput type="text" placeholder="Lejárati dátum">
+        </mat-form-field>
+    </div>
+
+    <div class="form-group">
+        $
+        <mat-form-field>
+            <input name="amount" [(ngModel)]="amount" matInput type="number" placeholder="Összeg">
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-checkbox name="saveCredit" [(ngModel)]="saveCredit">Adatok megjegyzése</mat-checkbox>
+    </div>
+
+    <div class="alert alert-warning" *ngIf='errorMessage'>{{errorMessage}}</div>
+
+    <button (click)="onSubmit()">Feltöltés</button>
+</form>
